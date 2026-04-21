@@ -3,6 +3,7 @@ import { getDb } from '@/lib/db';
 import { attachAuthCookie, authErrorResponse, createAuthToken } from '@/lib/server-auth';
 import type { AuthRole } from '@/lib/server-auth';
 import { createClient } from '@supabase/supabase-js';
+import { getSupabasePublishableKey, getSupabaseUrl } from '@/lib/supabase/env';
 
 export async function POST(request: Request) {
   try {
@@ -12,16 +13,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Email et mot de passe requis' }, { status: 400 });
     }
 
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
-      {
-        auth: {
-          autoRefreshToken: false,
-          persistSession: false,
-        },
+    const supabase = createClient(getSupabaseUrl(), getSupabasePublishableKey(), {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
       },
-    );
+    });
 
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
       email,
@@ -88,4 +85,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }
-

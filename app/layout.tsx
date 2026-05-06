@@ -4,6 +4,7 @@ import { Manrope, Sora, Geist_Mono } from 'next/font/google'
 import { Toaster } from 'sonner'
 import { Analytics } from '@vercel/analytics/next'
 import { AuthSessionSync } from '@/components/auth-session-sync'
+import { PwaRegister } from '@/components/pwa-register'
 import './globals.css'
 import { Providers } from './providers'
 
@@ -22,8 +23,15 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Smart Insert - Plateforme de Recrutement',
+  applicationName: 'Smart Insert',
   description: 'Smart Insert est votre plateforme de recrutement en ligne pour connecter candidats et entreprises. Trouvez le poste ideal ou le talent parfait.',
   generator: 'v0.app',
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Smart Insert',
+  },
   icons: {
     icon: [
       {
@@ -59,6 +67,7 @@ export default function RootLayout({
     <html lang="fr">
       <body className={`${manrope.variable} ${sora.variable} ${geistMono.variable} font-sans antialiased`}>
         <Providers>
+          <PwaRegister />
           <AuthSessionSync />
           {children}
         </Providers>

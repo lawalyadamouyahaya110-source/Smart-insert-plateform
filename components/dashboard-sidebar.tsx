@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Briefcase, LogOut, Menu, X } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { logout } from "@/lib/auth"
 import type { User } from "@/lib/types"
@@ -26,6 +26,17 @@ export function DashboardSidebar({
 }) {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : ""
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [mobileOpen])
 
   const handleLogout = () => {
     logout()
@@ -129,7 +140,7 @@ export function DashboardSidebar({
         <div className="fixed inset-0 z-50 lg:hidden" onClick={() => setMobileOpen(false)}>
           <div className="absolute inset-0 bg-foreground/25 backdrop-blur-sm" />
           <div
-            className="absolute left-0 top-0 h-full w-72 border-r border-sidebar-border bg-sidebar shadow-xl"
+            className="absolute left-0 top-0 h-full w-[min(85vw,20rem)] border-r border-sidebar-border bg-sidebar shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             {sidebarContent}

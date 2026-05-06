@@ -93,9 +93,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           />
         )}
         <main className="flex-1 overflow-y-auto bg-background">
-          <div className="border-b border-border/80 bg-card/70 px-6 py-4 backdrop-blur-sm lg:px-8">
+          <div className="border-b border-border/80 bg-card/70 px-4 py-3 backdrop-blur-sm sm:px-6 lg:px-8">
             <div className="mb-2 h-0.5 w-28 rounded-full bg-gradient-to-r from-primary/70 to-secondary/70" />
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm leading-relaxed text-muted-foreground">
               Bonjour <span className="font-semibold text-foreground">{displayName || "Utilisateur"}</span>
             </p>
           </div>

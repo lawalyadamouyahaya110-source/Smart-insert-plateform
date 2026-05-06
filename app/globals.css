@@ -126,12 +126,18 @@
     max-width: 100%;
     overflow-x: hidden;
   }
+  html {
+    -webkit-text-size-adjust: 100%;
+    color-scheme: light;
+    background-color: var(--background);
+  }
   body {
     background:
       radial-gradient(1200px 500px at 10% -10%, color-mix(in oklab, var(--primary) 20%, transparent), transparent),
       radial-gradient(900px 420px at 95% 0%, color-mix(in oklab, var(--secondary) 20%, transparent), transparent),
       linear-gradient(to bottom, color-mix(in oklab, var(--background) 94%, white), var(--background));
     @apply min-h-screen text-foreground;
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   a,
@@ -145,6 +151,12 @@
   img {
     max-width: 100%;
     height: auto;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
   }
 
   h1,
@@ -209,6 +221,10 @@
 }
 
 @media (max-width: 768px) {
+  body {
+    overscroll-behavior-y: none;
+  }
+
   .partner-marquee-track {
     animation-duration: 24s;
   }

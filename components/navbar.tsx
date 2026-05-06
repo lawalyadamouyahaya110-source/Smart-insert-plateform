@@ -30,6 +30,17 @@ export function Navbar() {
     void syncUser()
   }, [pathname])
 
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : ""
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [mobileOpen])
+
   const handleLogout = () => {
     logout()
     setUser(null)
@@ -75,17 +86,17 @@ export function Navbar() {
       <div className="mx-auto h-0.5 max-w-7xl bg-gradient-to-r from-primary/70 via-secondary/60 to-primary/70" />
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
         <Link href="/" className="group flex items-center gap-3">
-          <div className="relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl border border-border/70 bg-white shadow-lg shadow-primary/15 transition-transform group-hover:scale-105 lg:h-16 lg:w-16">
+          <div className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl border border-border/70 bg-white shadow-lg shadow-primary/15 transition-transform group-hover:scale-105 lg:h-16 lg:w-16">
             <Image
               src="/1737076354945.jpg"
               alt="Logo Smart Insert"
               fill
               className="object-contain p-1.5"
-              sizes="(min-width: 1024px) 64px, 56px"
+              sizes="(min-width: 1024px) 64px, 48px"
               priority
             />
           </div>
-          <span className="text-xl font-bold tracking-tight text-foreground lg:text-2xl">
+          <span className="text-lg font-bold tracking-tight text-foreground sm:text-xl lg:text-2xl">
             Smart <span className="text-primary">Insert</span>
           </span>
         </Link>
@@ -148,7 +159,7 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="border-t border-border bg-background/95 px-4 pb-4 pt-2 backdrop-blur md:hidden">
+        <div className="border-t border-border bg-background/95 px-4 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-2 backdrop-blur md:hidden">
           <div className="flex flex-col gap-1">
             <div className="px-1 pb-2 pt-1">
               <LanguageSwitcher compact />
